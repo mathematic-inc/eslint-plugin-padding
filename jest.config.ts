@@ -4,5 +4,5 @@ export default {
   transform: { "^.+\\.tsx?$": "ts-jest" },
   collectCoverage: false,
   collectCoverageFrom: ["src/**/*.{js,ts}"],
-  coverageReporters: ["text-summary", "lcov"]
+  coverageReporters: ["text-summary", "lcov"],
 };

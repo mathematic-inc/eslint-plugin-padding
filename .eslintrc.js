@@ -10,14 +10,35 @@ module.exports = {
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
   ],
-  plugins: ["eslint-plugin-tsdoc"],
+  plugins: ["tsdoc", "padding"],
   parser: "@typescript-eslint/parser",
   rules: {
+    // TypeScript settings
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": 2,
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": 2,
+    "@typescript-eslint/member-ordering": 2,
+    "@typescript-eslint/explicit-member-accessibility": [
+      2,
+      {
+        overrides: {
+          constructors: "no-public",
+        },
+      },
+    ],
+
+    // Project specific
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "no-param-reassign": 0,
+    "max-classes-per-file": 0,
+
     "spaced-comment": [2, "always", { markers: ["/"], exceptions: ["*"] }],
     "no-useless-constructor": 0,
     "no-plusplus": [2, { allowForLoopAfterthoughts: true }],
     "tsdoc/syntax": "error",
-    "@typescript-eslint/padding-line-between-statements": [
+
+    "padding/spacing": [
       2,
       // Imports
       { blankLine: "always", prev: "import", next: "*" },

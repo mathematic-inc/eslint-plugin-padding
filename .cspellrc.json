@@ -1,7 +1,7 @@
 {
   "version": "0.1",
   "language": "en",
-  "words": [],
+  "words": ["IIFE", "TSES"],
   "dictionaries": [
     "en_US",
     "softwareTerms",
