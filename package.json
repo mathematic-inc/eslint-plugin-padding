@@ -35,7 +35,7 @@
 		"lint:spelling": "cspell --config=./.cspellrc.json \"{src,tests,scripts}/**/*.{md,ts,js}\"",
 		"lint:es": "eslint --ext .js,.ts ./src",
 		"lint:ts": "tsc -p tsconfig.json --noEmit",
-		"test": "jest --coverage --verbose",
+		"test": "jest",
 		"prerelease": "yarn build",
 		"release": "changeset publish"
 	},

@@ -529,18 +529,6 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
             {
               type: "object",
               properties: {
-                type: {
-                  anyOf: [
-                    { $ref: "#/definitions/nodeType" },
-                    {
-                      type: "array",
-                      items: { $ref: "#/definitions/nodeType" },
-                      uniqueItems: true,
-                      minItems: 1,
-                      additionalItems: false,
-                    },
-                  ],
-                },
                 keyword: {
                   anyOf: [
                     { $ref: "#/definitions/keyword" },
@@ -555,6 +543,18 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
                 },
                 inline: {
                   type: "boolean",
+                },
+                type: {
+                  anyOf: [
+                    { $ref: "#/definitions/nodeType" },
+                    {
+                      type: "array",
+                      items: { $ref: "#/definitions/nodeType" },
+                      uniqueItems: true,
+                      minItems: 1,
+                      additionalItems: false,
+                    },
+                  ],
                 },
               },
               minProperties: 1,
@@ -574,7 +574,6 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
               {
                 type: "array",
                 items: { $ref: "#/definitions/statementType" },
-                uniqueItems: true,
                 minItems: 1,
                 additionalItems: false,
               },
@@ -640,12 +639,16 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
         return { keyword: [type] };
       }
 
-      if (type.keyword !== undefined && !Array.isArray(type.keyword)) {
-        nType.keyword = [type.keyword];
+      if (type.keyword !== undefined) {
+        nType.keyword = Array.isArray(type.keyword) ? type.keyword : [type.keyword];
       }
 
-      if (type.type !== undefined && !Array.isArray(type.type)) {
-        nType.keyword = [type.type];
+      if (type.type !== undefined) {
+        nType.type = Array.isArray(type.type) ? type.type : [type.type];
+      }
+
+      if (type.inline !== undefined) {
+        nType.inline = type.inline;
       }
 
       return nType;
@@ -671,11 +674,11 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
         const nType = normalizeStatementType(t);
 
         if (nType.inline !== undefined) {
-          if (nType.inline && node.loc.start.line !== node.loc.end.line) {
-            return false;
-          }
-
-          if (node.loc.start.line === node.loc.end.line) {
+          if (nType.inline) {
+            if (node.loc.start.line !== node.loc.end.line) {
+              return false;
+            }
+          } else if (node.loc.start.line === node.loc.end.line) {
             return false;
           }
         }
