@@ -30,7 +30,7 @@ rule and can also be used to replace
 
 - `STATEMENT_TYPE` is one (or an array) of the following:
 
-  1. A space-delimited list of keyword (e.g. "const", "export const", or "class")
+  1. A space-delimited list of keyword (e.g. `"const"`, `"export const"`, or `"class"`)
   2. One of the following:
 
      - `"*"` is wildcard. This matches any statements.
@@ -55,10 +55,10 @@ rule and can also be used to replace
 
     where
 
-    - NODE_TYPE is the name of an `ESTree` node type. You can use an
+    - `NODE_TYPE` is the name of an `ESTree` node type, e.g. `"FunctionDeclaration"`. You can use an
       [`AST explorer`](https://astexplorer.net) to get the name of a particular node.
-    - KEYWORD is one (or an array) of either (1) or (2).
-    - "inline" denotes where to validate nodes that are span multiple lines (`false`) or a single
+    - `KEYWORD` is one (or an array) of either (1) or (2).
+    - `"inline"` denotes where to validate nodes that are span multiple lines (`false`) or a single
       line (`true`)
 
 ## When Not To Use It
