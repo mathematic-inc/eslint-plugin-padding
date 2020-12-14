@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-padding",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "An ESLint plugin regarding any and all spacing between statements",
 	"license": "GPL-3.0-or-later",
 	"repository": "https://github.com/mu-io/eslint-plugin-padding",
@@ -15,7 +15,6 @@
 		"lib": "lib",
 		"test": "tests"
 	},
-	"private": false,
 	"husky": {
 		"hooks": {
 			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
@@ -26,6 +25,9 @@
 		"extends": [
 			"@commitlint/config-conventional"
 		]
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"scripts": {
 		"build": "tsc -b tsconfig.build.json",
