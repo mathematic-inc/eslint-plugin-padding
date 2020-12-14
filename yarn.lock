@@ -2447,8 +2447,12 @@ eslint-plugin-import@^2.22.1:
     resolve "^1.17.0"
     tsconfig-paths "^3.9.0"
 
-"eslint-plugin-padding@file:./lib":
-  version "0.0.0"
+eslint-plugin-padding@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-padding/-/eslint-plugin-padding-0.0.2.tgz#03472ca15aaf4e3fca681f0b6c25ceb0bbbfd1ad"
+  integrity sha512-qy9Kecf7a+NTMEbVVK+tY/1CqVfgnuVITelRMSfuSVaeKpwEMOryLMuQ/8CAK5NDcqDxKLB7u+4RFKRvJqjkeA==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^4.9.1"
 
 eslint-plugin-prettier@^3.1.4:
   version "3.3.0"
