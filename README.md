@@ -58,7 +58,7 @@ rule and can also be used to replace
     - `NODE_TYPE` is the name of an `ESTree` node type, e.g. `"FunctionDeclaration"`. You can use an
       [`AST explorer`](https://astexplorer.net) to get the name of a particular node.
     - `KEYWORD` is one (or an array) of either (i) or (ii).
-    - `"inline"` denotes where to validate nodes that are span multiple lines (`false`) or a single
+    - `"inline"` is a flag that denotes the node must span multiple lines (`false`) or a single
       line (`true`)
 
 ## When Not To Use It
