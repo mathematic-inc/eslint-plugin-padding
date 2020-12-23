@@ -25,6 +25,78 @@ ruleTester.run("padding-line-between-statements", rule, {
       options: [{ blankLine: "always", prev: "*", next: "*" }],
     },
 
+    //
+    // Comments
+    //
+    {
+      code: `import foo from "bar";
+      
+/** Test */
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: true },
+        },
+      ],
+    },
+    {
+      code: `import foo from "bar";
+      
+/** Test */
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "block" },
+        },
+      ],
+    },
+    {
+      code: `import foo from "bar";
+/** Test */
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "line" },
+        },
+      ],
+    },
+    {
+      code: `import foo from "bar";
+      
+// Test
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "line" },
+        },
+      ],
+    },
+    {
+      code: `import foo from "bar";
+// Test
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "block" },
+        },
+      ],
+    },
+
     // ----------------------------------------------------------------------
     // wildcard
     // ----------------------------------------------------------------------
@@ -2755,6 +2827,67 @@ var a = 1
     },
   ],
   invalid: [
+    //
+    // Comments
+    //
+    {
+      code: `import foo from "bar";
+/** Test */
+import bar from "foo";
+`,
+      output: `import foo from "bar";
+
+/** Test */
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "block" },
+        },
+      ],
+      errors: [{ messageId: "expectedBlankLine" }],
+    },
+    {
+      code: `import foo from "bar";
+// Test
+import bar from "foo";
+`,
+      output: `import foo from "bar";
+
+// Test
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "always",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "line" },
+        },
+      ],
+      errors: [{ messageId: "expectedBlankLine" }],
+    },
+    {
+      code: `import foo from "bar";
+
+// Test
+import bar from "foo";
+`,
+      output: `import foo from "bar";
+// Test
+import bar from "foo";
+`,
+      options: [
+        {
+          blankLine: "never",
+          prev: { keyword: "import" },
+          next: { keyword: "import", comment: "line" },
+        },
+      ],
+      errors: [{ messageId: "unexpectedBlankLine" }],
+    },
+
     // ----------------------------------------------------------------------
     // wildcard
     // ----------------------------------------------------------------------

@@ -50,6 +50,7 @@ rule and can also be used to replace
       "type": NODE_TYPE | undefined,
       "keyword": KEYWORD | undefined,
       "inline": boolean | undefined
+      "comment": boolean | 'line' | 'block' | undefined
     }
     ```
 
@@ -60,6 +61,7 @@ rule and can also be used to replace
     - `KEYWORD` is one (or an array) of either (i) or (ii).
     - `"inline"` is a flag that denotes the node must span multiple lines (`false`) or a single
       line (`true`)
+    - `"comment"` specifies the particular node has a comment before it. String options declare a specific type.
 
 ## When Not To Use It
 

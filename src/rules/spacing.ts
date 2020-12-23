@@ -4,6 +4,7 @@ import {
   TSESTree,
   ASTUtils,
   ESLintUtils,
+  AST_TOKEN_TYPES,
 } from "@typescript-eslint/experimental-utils";
 
 // ------------------------------------------------------------------------------
@@ -22,6 +23,7 @@ type StatementType =
       type?: AST_NODE_TYPES | AST_NODE_TYPES[];
       keyword?: string | string[];
       inline?: boolean;
+      comment?: boolean | "line" | "block";
     };
 
 export interface PaddingOption {
@@ -544,6 +546,9 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
                 inline: {
                   type: "boolean",
                 },
+                comment: {
+                  anyOf: [{ type: "boolean" }, { enum: ["line", "block"] }],
+                },
                 type: {
                   anyOf: [
                     { $ref: "#/definitions/nodeType" },
@@ -633,6 +638,7 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
         type?: AST_NODE_TYPES[];
         keyword?: string[];
         inline?: boolean;
+        comment?: boolean | "line" | "block";
       } = {};
 
       if (typeof type === "string") {
@@ -649,6 +655,10 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
 
       if (type.inline !== undefined) {
         nType.inline = type.inline;
+      }
+
+      if (type.comment !== undefined) {
+        nType.comment = type.comment;
       }
 
       return nType;
@@ -680,6 +690,30 @@ export default ESLintUtils.RuleCreator((name) => `https://github.com/mu-io/${nam
             }
           } else if (node.loc.start.line === node.loc.end.line) {
             return false;
+          }
+        }
+
+        if (nType.comment !== undefined) {
+          const comments = sourceCode.getCommentsBefore(innerStatementNode).pop();
+
+          switch (nType.comment) {
+            case "block":
+              if (!comments || comments.type !== AST_TOKEN_TYPES.Block) return false;
+
+              break;
+            case "line":
+              if (!comments || comments.type !== AST_TOKEN_TYPES.Line) return false;
+
+              break;
+            case true:
+              if (!comments) return false;
+
+              break;
+            case false:
+              if (comments) return false;
+
+              break;
+            default:
           }
         }
 

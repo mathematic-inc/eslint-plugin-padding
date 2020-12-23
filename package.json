@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-padding",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "An ESLint plugin regarding any and all spacing between statements",
 	"license": "GPL-3.0-or-later",
 	"repository": "https://github.com/mu-io/eslint-plugin-padding",
